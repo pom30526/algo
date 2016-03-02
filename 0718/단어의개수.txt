@@ -1,0 +1,31 @@
+
+#include <stdio.h>
+#include <string.h>
+char line[1000001];
+ 
+ 
+int main(){
+    int i, j;
+    int count;
+ 
+    count = 0;
+    gets(line);
+ 
+    for (i = 0; i < strlen(line); i++){
+        if (line[i] == ' '){
+            continue;
+        }
+        else{
+            count++;
+            for (; i < strlen(line); i++){
+                if (line[i] == ' ')
+                    break;
+                else
+                    continue;
+            }
+        }
+    }
+            printf("%d\n", count);
+            return 0;
+}
+ 

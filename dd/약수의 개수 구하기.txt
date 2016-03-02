@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int nums(int n){
+
+	int result = 0;
+	for (int i = 1; i <= sqrt(n); i++){
+		if (i == sqrt(n)) result++;
+		else if (n % i == 0) result += 2;
+	}
+	return result;
+}
+
+int main(){
+
+	int t, n;
+
+	cin >> t;
+
+	for (int i = 1; i <= t; i++){
+		cin >> n;
+		cout << "#testcase" << i << endl << nums(n) << endl;
+	}
+
+
+	return 0;
+}

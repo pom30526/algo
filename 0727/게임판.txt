@@ -1,0 +1,54 @@
+#include <stdio.h>
+int map[101][101];
+int visit[101][101];
+int m;
+void dps(int x, int y){
+	if (x < 0 || x >= m || y < 0 || y >= m)
+		return;
+	if (visit[x][y] != 0)
+		return;
+	visit[x][y] = 1;
+	dps(x, map[x][y] + y);
+	dps(map[x][y] + x, y);
+}
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int num;
+	int i, j;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr < nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+
+		scanf("%d", &m);
+
+		for (i = 0; i < m; i++){
+			for (j = 0; j < m; j++){
+				scanf("%d", &map[i][j]);
+			}
+		}
+		dps(0, 0);
+		if (visit[m - 1][m - 1] != 0){
+			printf("YES\n");
+		}
+		else{
+			printf("NO\n");
+		}
+		for (i = 0; i < m; i++){
+			for (j = 0; j < m; j++){
+				map[i][j] = 0;
+				visit[i][j] = 0;
+			}
+		}
+
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

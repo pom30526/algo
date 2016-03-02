@@ -1,0 +1,73 @@
+/*
+달팽이 배열
+*/
+#include <stdio.h>
+#include <math.h>
+
+int map[10][1000];
+int main(){
+
+	int c, r;
+	int i, j;
+	int flag, temp, k;
+	int x, y, current;
+	scanf("%d %d", &r, &c);   //r가 x축 c이 y축
+	scanf("%d", &k);
+	x = 1, y = 0;			//올라가면서 가고 내려가면서 계산하고 왼쪽계산하면서 한개식 줄이고
+	//반복하면서 배열은 사용하지 않고 좌표만 출력하는 형식으로 답을 구해나감
+
+	current = 0;
+	if (k > r*c){
+		printf("0\n");
+
+	}
+	else{
+		r--;
+		while (current < k){
+			for (i = 0; i < c; i++){
+				y++;
+				current++;
+				if (current == k){
+					printf("%d %d", x, y);
+					printf("\n");
+					break;
+				}
+
+			}
+			c--;
+			for (i = 0; i < r; i++){
+				x++;
+				current++;
+				if (current == k){
+					printf("%d %d", x, y);
+					printf("\n");
+					break;
+				}
+
+			}
+			r--;
+			for (i = 0; i < c; i++){
+				y--;
+				current++;
+				if (current == k){
+					printf("%d %d\n", x, y);
+					break;
+				}
+
+			}
+			c--;
+			for (i = 0; i < r; i++){
+				x--;
+				current++;
+				if (current == k){
+					printf("%d %d\n", x, y);
+					break;
+				}
+
+			}
+			r--;
+		}
+
+	}
+	return 0;
+}

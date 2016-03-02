@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+char data[10];
+int main(){
+int itr, n, i;
+int nCount;
+
+scanf("%d", &nCount);
+
+		for (itr = 0; itr<nCount; itr++)
+			{
+			 printf("#testcase%d\n", itr + 1);
+
+			while (1){
+			scanf("%s", &data);
+			if (data[0]-'0' == 0) break;
+
+			int check = 0;
+			for (i = 0; i < strlen(data)-1; i++){
+
+			if (data[i] == data[i + 1]) continue;
+			else if (check >=0 && data[i] < data[i + 1])
+			check = 1; // plue;
+			else if (check <= 0 && data[i] > data[i + 1])
+			check = -1; // minus;
+			else{
+			check = 10; break;
+			}
+		}
+
+		if (check == 10) printf("bouncy\n");
+		else printf("no bouncy\n");
+			}
+		}
+	return 0;
+	}

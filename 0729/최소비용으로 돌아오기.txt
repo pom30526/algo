@@ -1,0 +1,63 @@
+#include <stdio.h>
+int minprice = 10000;
+int map[101][101];
+int visit[101];
+void dfs(int here, int N, int cnt, int price){
+
+	int i, j;
+	if (cnt == N && here == 1){
+		if (minprice >= price)
+			minprice = price;
+		return;
+	}
+
+	for (i = 1; i <= N; i++){
+		if ((price + map[here][i]) > minprice)
+			continue;
+		if (map[here][i] > 0 && visit[i] == 0){
+			visit[i] = 1;
+			dfs(i, N, cnt + 1, price + map[here][i]);
+			visit[i] = 0;
+		}
+	}
+}
+void playdfs(int here, int N){
+	int i;
+	for (i = 1; i <= N; i++){
+		if (map[here][i] > 0){
+			visit[i] = 1;
+			dfs(i, N, 1, map[here][i]);
+			visit[i] = 0;
+		}
+	}
+}
+void init(){
+	int i = 0;
+	minprice = 10000;
+	for (i = 0; i < 101; i++){
+		visit[i] = 0;
+	}
+
+}
+int main(){
+	int N, i, j;
+	int T, itr;
+
+	scanf("%d", &T);
+	for (itr = 0; itr < T; itr++){
+		printf("#testcase%d\n", itr + 1);
+		scanf("%d", &N);
+		init();
+
+		for (i = 1; i <= N; i++){
+			for (j = 1; j <= N; j++){
+				scanf("%d", &map[i][j]);
+			}
+		}
+		playdfs(1, N);
+
+		printf("%d\n", minprice);
+	}
+	return 0;
+
+}

@@ -1,0 +1,48 @@
+
+
+#include <stdio.h>
+int a1[100][2];
+int main(){
+
+	int i,j;
+	int child,parent;
+	int numofParent;
+	int temp;
+	int count;
+	int n;
+	int flag;
+	scanf("%d",&n);
+	scanf("%d %d",&child,&parent);
+	scanf("%d",&numofParent);
+	for(i=0; i<numofParent;i++){
+		for(j=0;j<2;j++){
+			scanf("%d",&a1[i][j]);
+		}
+	}
+
+	temp=0; count=0; flag=1;
+	while(flag){
+		if(child==parent)
+			break;
+		flag=0;
+		for(i=0; i<numofParent;i++){
+			for(j=0; j<numofParent;j++){
+				if(a1[i][j]==child){
+					child=a1[i][0];
+					count++;
+					flag=1;
+
+					if(child==a1[0][0]){
+						child =a1[i][1];
+					}
+				}
+			}
+		}	
+	}
+
+
+
+	printf("%d\n",count);
+
+	return 0;
+}

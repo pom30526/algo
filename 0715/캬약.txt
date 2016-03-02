@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+char map[50][50];
+int distance[10][2];
+
+int main(){
+	int r, c;
+	int i, j,rank,flag;
+	scanf("%d %d", &r, &c);	 // 행 ==r 열 ===c
+	for (i = 0; i < r; i++)
+		scanf("%s", map[i]); //배열을 입력받습니다
+
+	flag = 0;
+	rank = 1;
+
+		for (i = c - 2; i > 0; i--){
+			for (j = 0; j < r; j++){
+				if (map[j][i] != '.'){
+					distance[j][0] = map[j][i];
+					distance[j][1] = rank;
+					map[j][i - 1] = '.';
+					map[j][i - 2] = '.';
+					flag = 1;
+				}
+			}
+			if (flag){
+				rank++;
+				flag = 0;
+			}
+		}
+		
+	
+	for (i = 1; i <= 9; i++){
+		for (j = 0; j < c; j++){
+			if (distance[j][0]-48 == i){
+				printf("%d\n", distance[j][1]);
+
+			}
+		}
+	}
+
+
+	for (i = 0; i < 50; i++){
+		for (j = 0; j < 50; j++){
+			map[i][j] = '0';
+		}
+	}
+	for (i = 0; i < 10; i++){
+		for (j = 0; j < 2; j++){
+			distance[i][j] = 0;
+
+		}
+	}
+	return 0;
+}
+
+

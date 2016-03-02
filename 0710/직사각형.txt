@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int a1[4];
+int b1[4];
+int main(){
+	
+	int i ,x1,x2,y1,y2,z1,z2,h1,h2;
+	
+	for (i = 0; i < 4; i++){
+		scanf("%d %d %d %d", &x1 ,&y1,&x2,&y2);
+		scanf("%d %d %d %d", &z1, &h1, &z2, &h2);
+		if (x1>z2 || x2<z1 || y1>h2 || y2 < h1){  //떨어지는 조건
+			printf("d\n");
+		}
+		else if (x1 >= z2 || x2 <= z1 || y1 >= h2 || y2 <= h1){  //여기서 같게 되는 조건이들어가고 여기서 점과 선이 구분되지
+			if (x1 == z2  && y2 ==h1|| x2 == z1 && y1==h2|| y1 == h2&&x1==z2 || y2 == h1 && x2==z1){   //이렇게 같아지면 점이지
+				printf("c\n");
+			}
+			else{
+				printf("b\n");  //  아니면 선
+			}
+		}
+		else{
+			printf("a\n");
+		}
+		
+	}
+	return 0;
+}

@@ -1,0 +1,51 @@
+#include <stdio.h>
+int map[22];
+int m,n;
+int max = -11111;
+void algo(int sum, int size){
+	if (size == n){
+		if (sum > m){
+			return;
+		}
+		else{
+		if (sum > max){
+		max = sum;
+			}
+		}
+		return;
+	}
+	algo(sum + map[size], size + 1);
+	algo(sum, size + 1);
+}
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	
+	int i;
+	
+	
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+
+		scanf("%d %d", &m, &n);
+
+		
+		for (i = 0; i < n; i++){
+			scanf("%d", &map[i]);
+		}
+		
+		algo(0, 0);
+		
+		printf("%d\n",max);
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+char a[100];
+char b[100];
+	int main()
+	{
+
+		int itr;
+		int nCount;		/* 문제의 테스트 케이스 */
+		int n;
+		int i,k;
+		scanf_s("%d", &nCount);	/* 테스트 케이스 입력 */
+
+		for (itr = 0; itr<nCount; itr++)
+		{
+
+			printf("#testcase%d\n", itr + 1);
+
+			scanf_s("%s %s %d", a,100 ,b,100, &n);
+
+			printf("%s%s\n", a,b);
+			for (i = 0; i < n; i++){
+				printf("%c", a[i]);
+			}
+			for (k = n ; b[k]; k++){
+				
+				printf("%c", b[k]);
+				
+			}
+			printf("\n");
+
+		}
+
+		return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+	}
+

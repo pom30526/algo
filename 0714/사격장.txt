@@ -1,0 +1,42 @@
+
+
+#include <stdio.h>
+#include <string.h>
+int a1[8][8];
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int i,j,score,max;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+	
+	for(itr=0; itr<nCount; itr++)
+	{
+		max=-11111;
+		printf("#testcase%d\n",itr+1);
+		
+		for(i=1;i<7;i++){
+			for(j=1; j<7;j++){
+				scanf("%d",&a1[i][j]);
+			}
+		}
+		
+			for(i=0;i<8;i++){
+			score =0;
+				for(j=0;j<8;j++){
+					
+					score=a1[i-1][j]+a1[i][j+1]+a1[i+1][j]+a1[i][j-1]+a1[i][j]; //일반적인 경우에 score
+					if(max<score)
+					max=score;
+				
+			}
+		}
+			printf("%d\n",max);
+			max=0;
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+   } 

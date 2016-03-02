@@ -1,0 +1,118 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+
+int N;
+char input1[100];
+char input2[100];
+int input_num1;
+int input_num2;
+int result[100];
+int result_len;
+void cal()
+{
+	int i,j;
+	int up;
+
+	up=0;
+	for(i=strlen(input1)-1; i>=0; i--)
+	{
+		if(up==0)
+		{
+			up=1;
+		}
+		else
+		{
+			up*=N;
+		}
+		
+		if('0'<=input1[i] && input1[i]<='9'){
+			input_num1 += (input1[i]-'0')*up;
+		}else{
+			input_num1 += ((input1[i]-(55))+0)*up;
+		}
+	}
+
+	up=0;
+	for(i=strlen(input2)-1; i>=0; i--)
+	{
+		if(up==0)
+		{
+			up=1;
+		}
+		else
+		{
+			up*=N;
+		}
+		
+		if('0'<=input2[i] && input2[i]<='9'){
+			input_num2 += (input2[i]-'0')*up;
+		}else{
+			input_num2 += ((input2[i]-(55))+0)*up;
+		}
+	}
+//	printf("%d %d\n",input_num1,input_num2);
+}
+
+void cal2()
+{
+
+	input_num1+=input_num2;
+	printf("%d\n",input_num1);
+	while(input_num1!=0)
+	{
+		result[result_len++]=input_num1%N;
+		input_num1/=N;
+	}
+}
+
+void prin()
+{
+	int i;
+
+	for(i=result_len-1;i>=0;i--)
+	{
+		//printf("[%d]\n",result[i]);
+		if(0<=result[i] && result[i]<=9)
+		{
+			printf("%d",result[i]);
+		}
+		else
+		{
+			printf("%c",result[i]+55);
+		}
+	}
+	result_len=0;
+		input_num1 = 0;
+	input_num2 = 0;
+	printf("\n");
+}
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+		scanf("%d",&N);
+		scanf("%s",&input1);
+		scanf("%s",&input2);
+	
+		cal();
+		cal2();
+		prin();
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

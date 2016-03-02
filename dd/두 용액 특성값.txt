@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int arr[100001];
+
+
+int main()
+{
+	int n;
+	int nCase;
+	scanf("%d", &nCase);
+	for (int count = 0; count < nCase; count++)
+	{
+		scanf("%d", &n);
+		for (int i = 0; i < n; i++)
+			scanf("%d", arr + i);
+
+		qsort(arr, n, 4, compare);
+		int st = 0, la = n - 1;
+		int sel1 = 0, sel2 = 0;
+		int max = 1000000000;
+		while (st < la)
+		{
+			if (max > abs(arr[st] + arr[la])){
+				max = abs(arr[st] + arr[la]);
+				sel1 = arr[st];
+				sel2 = arr[la];
+			}
+			if (arr[st] + arr[la] < 0)
+				st++;
+			else
+				la--;
+		}
+		printf("#testcase%d\n", count+1);
+		printf("%d %d\n", sel1, sel2);
+	}
+}
+
+
+void swap(int* a, int* b){
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void quick_sort(int* array, int start, int end){
+
+	if (start >= end) return;
+
+	int mid = (start + end) / 2;
+	int pivot = array[mid];
+
+	swap(&array[start], &array[mid]);
+
+	int p = start + 1, q = end;
+
+	while (1){
+		while (array[p] <= pivot){ p++; }
+		while (array[q]>pivot){ q--; }
+
+		if (p>q) break;
+
+		swap(&array[p], &array[q]);
+	}
+
+	swap(&array[start], &array[q]);
+
+	quick_sort(array, start, q - 1);
+	quick_sort(array, q + 1, end);
+}

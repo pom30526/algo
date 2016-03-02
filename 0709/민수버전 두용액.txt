@@ -1,0 +1,76 @@
+﻿/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+
+int list[100000];
+int main()
+{
+
+   int itr;
+   int nCount;      /* 문제의 테스트 케이스 */
+   int n, i, j, flag, low, high, t, value_abs, value_a, value_b;
+
+   scanf("%d", &nCount);   /* 테스트 케이스 입력 */
+
+   for(itr=0; itr<nCount; itr++)
+   {
+
+      printf("#testcase%d\n",itr+1);
+
+      /*
+2
+      알고리즘이 들어가는 부분
+
+      */
+      scanf("%d", &n);
+
+      for (i=0; i<n; i++)
+         scanf("%d", &list[i]);
+
+      for (i=0; i<n-1; i++) {
+         flag = 1;
+         for (j=0; j<n-1-i; j++) {
+            if (list[j] > list[j+1]) {
+               list[j] = list[j] ^ list[j+1];   //값이 서로 바뀌는것 버블솔트
+               list[j+1] = list[j+1] ^ list[j]; //정렬
+               list[j] = list[j] ^ list[j+1];
+
+               flag = 0;
+            }
+         }
+         if (flag)
+            break;
+      }
+
+      low = 0;
+      high = n - 1;
+
+      value_abs = 1111111111;
+      while (low < high) {
+         t = list[low] + list[high];
+
+         if (t < 0)
+            t = t * -1;
+
+         if (value_abs > t) {
+            value_abs = t;
+            value_a = list[low];
+            value_b = list[high];
+         }
+
+         if (list[low] + list[high] < 0)
+            low = low + 1;
+         else
+            high = high - 1;
+      }
+
+      printf("%d %d\n", value_a, value_b);
+   }
+
+   return 0;   /* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

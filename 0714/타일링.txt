@@ -1,0 +1,61 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+int elcude(int a,int b){
+	int r;
+	while(b!=0){
+		r=a%b;
+		a=b;
+		b=r;
+	}
+	return a;
+}
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int m,n;
+	int mok,chan,ec;
+	int r1,r2;
+	int x1,x2,min;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+
+		scanf("%d %d",&m,&n);
+		ec=elcude(m,n);
+		mok=(m*n)/(ec*ec);
+		chan=(m*n)%(ec*ec);
+		x1=m/ec;
+		x2=n/ec;
+		r1=m%ec;
+		r2=n%ec;
+	min=x1<x2?x1:x2;
+		if(r1 >0 && r2>0){
+			printf("%lld\n",(x1*x2+1));
+		}
+		else if(r1>0){
+			printf("%lld\n",(mok)+x1);
+		}
+		else if(r2>0){
+			printf("%lld\n",(mok)+x2);
+		}
+		else if(r1==0 &&r2==0){
+			printf("%lld\n",x1*x2);
+
+		}
+		
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

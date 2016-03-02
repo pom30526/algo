@@ -1,0 +1,56 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+
+int main()
+{	
+	int w,h;
+	int x,y;
+	int t;
+	int itr;
+	int valuex,valuey;
+	int i,j;
+	int nCount;		/* 문제의 테스트 케이스 */
+	
+	
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+	
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+		scanf("%d %d",&w,&h);
+		scanf("%d %d",&x,&y);
+		scanf("%d",&t);
+
+		valuex=(x+t)%(2*w); //움직인게 고려된 상태
+		valuey=(y+t)%(2*h); //움직인게 고려된 상태
+
+		i=0; j=0; x=0; y=0;
+		while(i<valuex){
+			if(i<w)
+				x++;
+			else
+				x--;
+			i++;
+		}
+		while(j<valuey){
+			if(j<h)
+				y++;
+			else
+				y--;
+			j++;
+		}
+
+		printf("%d %d\n",x,y);
+
+	
+}
+	
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

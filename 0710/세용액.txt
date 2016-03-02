@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int a1[100001];
+int compare(const void *a, const void *b){
+	return *(int *)a - *(int *)b;
+}
+
+int main(){
+	int n;
+	
+	int a, b,w,c,k;
+	scanf("%d", &n);
+	for (k = 0; k < n; k++){
+		scanf("%d", &a1[k]);
+	}
+	//quick_sort(a1, 0,n - 1);
+	qsort(a1, n, 4, compare);
+
+	int min = 1000000, result = 0, i = 0, j = n - 1; a = 0; b = 0 ,c=0;
+
+		if (a1[0] > 0){
+			printf("%d %d %d", a1[0], a1[1], a1[2]);
+		}
+		else if (a1[n - 1] < 0){
+			printf("%d %d %d", a1[n - 3], a1[n - 2], a1[n - 1]);
+		}
+	
+	else{
+		for (w = 0; w < n; w++){
+			i = w == 0 ? 1 : 0;
+			j = w == n - 1 ? n - 2 : n - 1;
+			while (i < j){
+
+				result = a1[w] + a1[i] + a1[j];
+				if (abs(result) < min){
+					min = abs(result);
+					a = i; b = j; c = w;
+				}
+
+				if (result < 0)
+					i = (i + 1) == w ? i + 2 : i + 1;
+
+				else
+					j = (j - 1 == w) ? j - 2 : j - 1;
+			}
+
+		}
+		printf("%d %d %d", a1[c], a1[a], a1[b]);
+	}
+		
+return 0;
+}

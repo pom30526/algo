@@ -1,0 +1,81 @@
+
+/*
+
+VC, GCC에서 사용
+해야지 해봐야지 
+*/
+
+#include <stdio.h>
+int arr[102][102];
+void checkArea(int x,int y,int count){
+	arr[x][y]=count;
+	if(arr[x-1][y]==0)
+		checkArea(x-1,y,count);
+	if(arr[x+1][y]==0)
+		checkArea(x+1,y,count);
+	if(arr[x][y-1]==0)
+		checkArea(x,y-1,count);
+	if(arr[x][y+1]==0)
+		checkArea(x,y+1,count);
+
+}
+int main()
+{
+	int arr2[102][102];
+	int itr;
+	int nCount;	
+	/* 문제의 테스트 케이스 */
+	int n;
+	int i,j,watermax,k,max;
+	int count;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+		max=-9999;
+		scanf("%d",&n);
+		for(i=1; i<=n;i++){
+			arr[i][0] =-1;  //경계선 만들어주기
+			arr[i][n+1]=-1; //경계선
+			arr[0][i]=-1;  //경계선
+			arr[n+1][i]=-1; //경계선
+			for(j=1; j<=n;j++){
+				scanf("%d",&arr2[i][j]);
+			}
+		}
+		watermax=-111;
+		for(i=1; i<=n;i++){
+			for(j=1; j<=n;j++){
+				if(arr2[i][j]>watermax)
+					watermax=arr2[i][j];
+			}
+		}
+		for(i=1; i<=watermax;i++){
+			for(j=1; j<=n;j++){
+				for(k=1; k<=n;k++){
+					if(arr2[j][k] <i){
+						arr2[j][k] =arr2[j][k]+100;
+					}
+					arr[j][k]=-1;
+					if(arr2[j][k] <=100)
+						arr[j][k] =0;
+				}
+			}
+		count =0;
+		for(j=1; j<=n;j++){
+			for(k=1; k<=n;k++){
+				if(arr[j][k]==0){
+				count =count+1;
+				checkArea(j,k,count);
+				}
+			}
+		}
+		if(count >max)
+			max=count;
+		}
+		printf("%d\n",max);
+	}
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+}

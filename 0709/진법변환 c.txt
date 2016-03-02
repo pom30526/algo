@@ -1,0 +1,95 @@
+﻿/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+
+char a[200];
+char b[200];
+char c[200];
+int main()
+{
+
+   int itr;
+   int nCount;      /* 문제의 테스트 케이스 */
+   int i, n, m, t, len_a, len_b, len_max, sum, flag;
+   char code[6] = {'A', 'B', 'C', 'D', 'E', 'F'};
+   m = 200;
+
+   scanf("%d", &nCount);   /* 테스트 케이스 입력 */
+
+   for(itr=0; itr<nCount; itr++)
+   {
+
+      printf("#testcase%d\n",itr+1);
+
+      /*
+
+      알고리즘이 들어가는 부분
+
+      */
+      for (i=0; i<m; i++) {
+         a[i] = 0;
+         b[i] = 0;
+         c[i] = 0;
+      }
+      scanf("%d %s %s", &n, a, b);  // n에는 2진수 a에는 배열 b에는 배열
+
+      for (len_a=0; a[len_a]; len_a++) {			//문자열 값을 받아서 %d로 출력했을 시에 문자열의 값 == 숫자의 값으로 변환시키는 로직
+         if (a[len_a] >= '0' && a[len_a] <= '9')
+            a[len_a] = a[len_a] - '0';				//integer.parseint 랑 유사하다
+         else if (a[len_a] >= 'A') {
+            a[len_a] = a[len_a] - 'A' + 10;			//16진수를 대비해서 A를 10 B11이렇게 바꾸는 부분
+         }
+      }
+
+      for (len_b=0; b[len_b]; len_b++) {
+         if (b[len_b] >= '0' && b[len_b] <= '9')
+            b[len_b] = b[len_b] - '0';
+         else if (b[len_b] >= 'A') {
+            b[len_b] = b[len_b] - 'A' + 10;
+         }
+      }
+
+      len_max = len_a > len_b ? len_a : len_b;
+      for (i=0; i<len_max; i++) {
+         a[m-len_a+i] = a[i];			//배열을 끝으로 땡기는 부분
+         a[i] = 0;
+
+         b[m-len_b+i] = b[i];	ha
+         b[i] = 0;
+      }
+
+      for (i=m-1; i>=m-len_max; i--) {
+         c[i] = c[i] + a[i] + b[i];		//그냥 이진수로 더해서 계산하는 부분
+         c[i-1] = c[i-1] + ((int) c[i] / n);	//뒷부터 채우는데 앞칸이 목	
+         c[i] = c[i] % n;                      //원래칸은 나머지
+      	}
+
+      sum = 0;
+      t = 1;
+      for (i=m-1; i>=m-len_max-1; i--) {       //내가 원하는 진법으로 변하는 부분
+         sum = sum + c[i] * t;
+         t = t * n;
+      }
+      printf("%d\n", sum);
+
+      flag = 0;
+      for (i=m-len_max-1; i<m; i++) {			//16진수부분
+         if (c[i] > 0)
+            flag = 1;
+         if (flag) {
+            if (c[i] >= 10)
+               printf("%c", code[c[i] - 10]);
+            else
+               printf("%d", c[i]);
+         }
+      }
+      printf("\n");
+   }
+
+   return 0;   /* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

@@ -1,0 +1,64 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+
+int diamond[1000][3];
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int n , i , max ,j,k ,now , pay;
+	int temp[3];
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+		now = 0 , pay = 0;
+		scanf("%d %d",&n,&max);
+		for(i=0;i<n;i++){
+			scanf("%d %d",&diamond[i][0],&diamond[i][1]);
+			diamond[i][2] = diamond[i][1] / diamond[i][0]; // 다이아몬드당 효율
+		}
+		for(i=0;i<n;i++){
+			for(j=i;j<n-1;j++){
+				if(diamond[j][2] < diamond[j+1][2] || (diamond[j][2] == diamond[j+1][2] && diamond[j][0] <diamond[j+1][0])){
+					for(k=0;k<3;k++){
+						temp[k] = diamond[j][k];
+						diamond[j][k] = diamond[j+1][k];
+						diamond[j+1][k] = temp[k];
+					}
+				}
+			}
+		}
+		now = max;
+		for(i=0;i<n;i++){
+			if(now % diamond[i][0] == 0){
+				pay += (now/diamond[i][0]) *diamond[i][1];
+				break;
+			}else if(now > diamond[i][0]){
+				pay += (now/diamond[i][0])* diamond[i][1];
+				now -= diamond[i][0]*(now/diamond[i][0]);
+			}
+		}
+		printf("%d\n",pay);
+
+
+
+		/*
+
+		알고리즘이 들어가는 부분
+
+		*/
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

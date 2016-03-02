@@ -1,0 +1,59 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+char a1[100];
+int print[100];
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int i,j;
+	int n;
+	int w,k;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+		scanf("%d",&n);
+		scanf("%s",a1);
+
+		for(i=0; i<n; i++){
+			if(a1[i] >='0' && a1[i]<='9')
+				a1[i] =a1[i]-'0';
+		}
+		
+		print[0] =a1[0];
+		w=0;
+		k=1;
+		while(k<=n){
+			if(print[w]!=a1[k]){
+				print[++w]=a1[k++];
+			}else{
+				w--;
+				k++;
+			}
+
+
+
+		}
+		for(i=0; i<w;i++){
+
+			printf("%d",print[i]);
+		}
+		printf("\n");
+
+
+			
+	}
+	
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+}

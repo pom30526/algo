@@ -1,0 +1,43 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include<stdio.h>
+
+int N, K;
+int count=0;
+
+void countNumber(int sum, int cnt, int index)
+{
+
+	
+	if (sum > N && cnt > K) 
+		return;
+
+	if (K == cnt && N == sum)
+	{
+		count++;
+		return;
+	}
+	for (int i = index; i <= N - sum; i++)
+		countNumber(sum + i, cnt + 1, i);
+
+}
+
+int main()
+{
+	int testcase;
+
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	scanf("%d", &testcase);
+
+	for (int itr = 1; itr <= testcase; itr++)
+	{
+		count = 0;
+		scanf("%d %d", &N, &K);
+		countNumber(0, 0, 1);
+		printf("#testcase%d\n", itr);
+		printf("%d\n", count);
+	}
+
+	return 0;
+}

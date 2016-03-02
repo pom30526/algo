@@ -1,0 +1,38 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+int r;
+#include <stdio.h>
+int ecud(int a, int b){
+	r = 0;
+	while (b != 0){
+		r = a%b;
+		a = b;
+		b = r;
+	}
+	return a;
+}
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int a, b;
+	scanf_s("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+
+		scanf_s("%d %d", &a, &b);
+		
+		printf("%d\n", ecud(a, b));
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

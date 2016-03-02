@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+int ma[102][102];
+
+void areacheck(int x, int y,int count){
+		ma[x][y]=count;
+	if(ma[x-1][y] ==0)
+		areacheck(x-1,y,count);
+	if(ma[x+1][y]==0)
+		areacheck(x+1,y,count);
+	if(ma[x][y+1]==0)
+		areacheck(x,y+1,count);
+	if(ma[x][y-1]==0)
+		areacheck(x,y-1,count);
+}
+
+int main()
+{
+	int a1[102][102];
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int n;
+	int i,j,wmax,w,k,l,max,z;
+	int count;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for(itr=0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n",itr+1);
+
+		scanf("%d",&n);
+		wmax=-9999;
+		max=-9999;
+		for(i=1;i<=n;i++){
+			ma[i][0] =-1; //0과 연산하는 재귀함수를 만나므로 무한루프를 피하기위해 -1로 경계선을준다
+			ma[i][n+1]=-1;
+			ma[n+1][i]=-1;
+			ma[0][i]=-1;
+			for(j=1; j<=n;j++){
+				scanf("%d",&a1[i][j]);
+				
+			       // 초기화
+			}
+		}
+		for(i=1;i<n;i++){
+			for(j=1;j<n;j++){
+				if(wmax<a1[i][j])
+					wmax=a1[i][j];
+			}
+		}
+		
+		for(w=1;w<=wmax;w++){
+			for(i=1;i<=n;i++){
+				for(j=1;j<=n;j++){
+						if(a1[i][j]<w){ //잠기는 지역
+							a1[i][j] = a1[i][j]+100;
+						}//값을 올려준다
+						ma[i][j]= -1;
+						 //확인은 다안전하지 못하다고 생각한다
+						if(a1[i][j]<=100)
+							ma[i][j]=0; 
+					
+				}
+			}
+			count=0;
+						for(z=1;z<=n;z++){
+							for(l=1;l<=n;l++){
+								if(ma[z][l] == 0){
+									count =count+1;
+									areacheck(z,l,count);
+								}
+						}
+					}
+				if(max<count)
+				max =count;
+		}		
+				printf("%d\n",max);
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */ 
+
+}
+
+

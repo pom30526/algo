@@ -1,0 +1,56 @@
+#include <stdio.h>
+char command[8];
+int stack[20];
+int stp = 0;
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int num;
+	int flag;
+	int i;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+		
+		
+		while (1){
+			scanf("%s", command);
+			if (command[0] == 'P' && command[1] == 'U'){
+				if (stp == 20){
+					printf("STACK FULL\n");
+				}
+				else{
+					scanf("%d", &num);
+					stack[stp++] = num;
+					printf("PUSH SUCCESS(%d)\n", num);
+				}
+			}
+			else if (command[0] == 'P' &&command[1] == 'O'){
+					if (stp == 0){
+						printf("STACK EMPTY\n");	
+					}
+					else{
+							printf("%d\n", stack[--stp]);
+						
+					}
+			}
+			else if(command[0]=='B'){
+				printf("BYE\n");
+				break;
+			}
+
+		}
+		for (i = 0; i < 20; i++){
+			stack[i] = 0;
+		}
+		stp = 0;
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

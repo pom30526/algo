@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <math.h>
+#include<string.h>
+char data[32];
+int num[100000];
+
+int calu(int n){
+	int number;
+	if (n == 0)
+		return 0;
+	
+	number = data[strlen(data) - n] - '0';
+	if (number == 1){
+		return ((((int)pow(2, n) - 1)) - calu(n - 1));
+	}
+	else{
+		return calu(n - 1);
+	}
+}
+int main(){
+	int i, n,j;
+	scanf("%d", &n); 
+	for (i = 0; i < n; i++){
+		scanf("%s", data); 
+		num[i] = calu(strlen(data));
+	}
+	for (j = 0; j < n; j++){
+		printf("%d\n", num[j]);
+	}
+}

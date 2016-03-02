@@ -1,0 +1,194 @@
+#include<stdio.h>
+
+int map[51][51];
+int visit[51][51];
+int n, m;			//y, x map size
+
+void BFS_1(int y, int x)	//	큐 방식 BFS
+{
+	int Queue[9999];
+	int front, rear;
+	int i;
+	int data_y, data_x;	//get Queue data 
+	int cal_y, cal_x;	//cal x, y
+	int dir[4][2] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };//direction
+
+
+	front = rear = 0;
+	Queue[rear++] = y;	//시작좌표
+	Queue[rear++] = x;
+	visit[y][x] = 1;	//첫좌표 방문
+
+	while (front != rear)//큐가 비었으면 종료
+	{
+		data_y = Queue[front++];
+		data_x = Queue[front++];
+
+		for (i = 0; i < 4; i++)
+		{
+			cal_y = data_y + dir[i][0];
+			cal_x = data_x + dir[i][1];
+
+			if (cal_y < 0 || cal_y >= n || cal_x < 0 || cal_x >= m)	//맵 범위 초과
+				continue;
+
+			//조건 1. 접근 못하는 위치
+			//조건 2. 한번도 방문한적 없는 곳.
+			if (map[cal_y][cal_x] == 0 || visit[cal_y][cal_x] != 0)
+				continue;
+
+			//현재값에서 나아가는 값에 +1 해준다.
+			visit[cal_y][cal_x] = visit[data_y][data_x] + 1;
+			Queue[rear++] = cal_y;
+			Queue[rear++] = cal_x;
+		}
+	}
+}
+
+void BFS_2(int y, int x, int c)	//재귀 방식 BFS
+{
+	if (y < 0 || y >= n || x < 0 || x >= m)	//맵 범위 초과
+		return;
+	if (map[y][x] == 0 || visit[y][x] != 0)
+		return;
+
+	visit[y][x] = c;	//방문 체크
+	BFS_2(y - 1, x, c); // 아래
+	BFS_2(y + 1, x, c); // 위
+	BFS_2(y, x - 1, c); // 왼쪽
+	BFS_2(y, x + 1, c); // 오른쪽
+}
+
+void DFS_1(int y, int x)	//스택 방식 DFS
+{
+	int Stack[9999999];
+	int top;
+	int i;
+	int data_y, data_x, data_c;	//get Queue data 
+	int cal_y, cal_x;		//cal x, y
+	int dir[4][2] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };//direction
+
+	visit[y][x] = 1;	//첫좌표 방문
+
+	top = 0;
+	Stack[top++] = y;	//Y 시작좌표
+	Stack[top++] = x;	//X 시작좌표
+	Stack[top++] = 1;	//카운트 값
+	while (top != 0)
+	{
+		data_c = Stack[--top];	//카운트 값
+		data_x = Stack[--top];	//X 시작 좌표
+		data_y = Stack[--top];	//Y 시작 좌표
+
+		for (i = 0; i < 4; i++)
+		{
+			cal_y = data_y + dir[i][0];
+			cal_x = data_x + dir[i][1];
+			data_c = data_c + 1;
+			if (cal_y < 0 || cal_y >= n || cal_x < 0 || cal_x >= m)	//맵 범위 초과
+				continue;
+
+			//조건 1. 접근 못하는 위치
+			//조건 2. 한번도 방문한적 없는 곳.
+			if (map[cal_y][cal_x] == 0 || visit[cal_y][cal_x] != 0)
+				continue;
+
+			//현재값에서 나아가는 값에 +1 해준다.
+			visit[cal_y][cal_x] = data_c;
+
+			Stack[top++] = cal_y;
+			Stack[top++] = cal_x;
+			Stack[top++] = data_c;
+		}
+	}
+}
+
+int DFS_2_cnt;
+void DFS_2(int y, int x, int c)	//재귀 방식 DFS
+{
+	if (y < 0 || y >= n || x < 0 || x >= m)	//맵 범위 초과
+		return;
+	if (map[y][x] == 0 || visit[y][x] != 0)
+		return;
+
+	DFS_2_cnt++;
+	visit[y][x] = c;	//방문 체크
+
+	DFS_2(y - 1, x, DFS_2_cnt); // 아래
+	DFS_2(y + 1, x, DFS_2_cnt); // 위
+	DFS_2(y, x - 1, DFS_2_cnt); // 왼쪽
+	DFS_2(y, x + 1, DFS_2_cnt); // 오른쪽
+}
+
+void map_view()
+{
+	int i, j;
+
+
+	printf("\n\n");
+	for (i = 0; i < n; i++){
+		for (j = 0; j < m; j++){
+			printf("%3d", visit[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n\n");
+}
+
+int main()
+{
+	int i, j;
+	int start_y, start_x;
+	scanf("%d %d", &n, &m);
+	for (i = 0; i < n; i++){
+		for (j = 0; j < m; j++){
+			scanf("%d", &map[i][j]);
+		}
+	}
+	scanf("%d %d", &start_y, &start_x);
+	start_y--;
+	start_x--;
+
+
+	DFS_2(start_y, start_x, 1);
+	//DFS_1(start_y, start_x);
+	//BFS(start_y, start_x);
+	map_view();
+
+	return 0;
+}
+
+
+/*
+y x
+8 7
+0 0 1 1 0 0 0
+1 1 1 1 0 1 0
+0 0 1 0 1 1 1
+0 1 1 1 1 0 1
+0 0 1 0 1 1 0
+0 1 1 1 1 0 0
+0 0 1 0 1 1 1
+0 0 0 0 1 0 0
+5 3
+
+7 7
+0 0 0 1 0 0 0
+0 0 0 1 0 0 0
+0 0 0 1 0 0 0
+1 1 1 1 1 1 1
+0 0 0 1 0 0 0
+0 0 0 1 0 0 0
+0 0 0 1 0 0 0
+4 4
+
+7 7
+1 0 0 1 0 0 1
+1 0 0 1 0 0 1
+1 0 0 1 0 0 1
+1 1 1 1 1 1 1
+1 0 0 1 0 0 1
+1 0 0 1 0 0 1
+1 0 0 1 0 0 1
+1 1
+*/

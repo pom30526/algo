@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <math.h>
+int a1[100];
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int nOfsun;
+	int e;
+	int i;
+	int j;
+	int result;
+	scanf_s("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+		scanf_s("%d", &nOfsun);
+		scanf_s("%d", &e);
+		for (i = 0; i < nOfsun; i++){
+			scanf_s("%d", &a1[i], nOfsun);
+		}
+		result = 0;
+		for (int j = 0; j < nOfsun; j++){
+			if (e % 2 == 1){
+				if (a1[j] != 0 && a1[j] > 0){
+					result += pow(a1[j], e);  //홀수인 경우 고려해야한다.
+				}
+
+			}
+			else if (e % 2 == 0){
+				result += pow(a1[j], e);
+
+			}
+		}
+		printf("%d\n", result);
+
+
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

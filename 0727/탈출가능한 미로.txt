@@ -1,0 +1,82 @@
+
+#include <stdio.h>
+int map[101][101];
+int m, n;
+char temp[101][101];
+void dfs(int x, int y){
+	if (x < 0 || x >= m || y < 0 || y >= n)
+		return;
+	if (map[x][y] == -1 || map[x][y] == 5)
+		return;
+			
+			map[x][y] = 5;   // 지나오면 5
+			
+			dfs(x - 1, y);	//왼
+			dfs(x + 1, y); //오
+
+			dfs(x, y - 1); //위
+			dfs(x, y + 1);//아래
+
+			dfs(x - 1, y - 1); //왼위
+			dfs(x - 1, y + 1); //왼아래
+
+			dfs(x + 1,y - 1); //오 위
+			dfs(x + 1, y + 1);//오 아래;
+	
+}
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int q, w;
+	int max;
+	int value, flag;;
+	
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr < nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+
+		scanf("%d %d", &m, &n); //m==x n==y
+
+
+		for (q = 0; q < m; q++){
+			scanf("%s", temp[q]);
+		}
+		for (q = 0; q < m; q++){
+			for (w = 0; w < n; w++)
+			{
+				if (temp[q][w] == '1'){
+					map[q][w] = -1;
+				}
+			}
+		}
+		dfs(0, 0);
+		/*	for (q = 0; q < m; q++){
+				for (w = 0; w < n; w++){
+				printf("%d ", map[q][w]);
+				}
+				printf("\n");
+				}*/
+
+		if (map[m - 1][n - 1] == 5){
+			printf("1\n");
+		}
+		else{
+			printf("0\n");
+		}
+		for (q = 0; q < 101; q++){
+			for (w = 0; w < 101; w++){
+				temp[q][w] = 0;
+				map[q][w] = 0;
+			}
+		}
+	}
+
+		
+		
+	return 0;
+}

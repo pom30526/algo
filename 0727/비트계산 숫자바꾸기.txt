@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+int Anum[1000];
+int Bnum[1000];
+
+
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int a, b;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+	int i = 0; int j = 0; int max = 0; int min = 0; int k, z;
+	 int count ;
+	for (itr = 0; itr<nCount; itr++)
+	{
+		count = 0;
+		printf("#testcase%d\n", itr + 1);
+		
+		scanf("%d %d", &a, &b);
+		for (k = 0; k < 1000; k++){
+			Anum[k] = 0;
+			Bnum[k] = 0;
+		}
+		i = 0;
+		j = 0;
+		while (a != 0){
+			Anum[i] = a % 2;
+			i++;
+			a = a / 2;
+		}
+		while (b != 0){
+			Bnum[j] = b % 2;
+			j++;
+			b = b / 2;
+		}
+		max = i > j? i:j;
+		
+		
+		
+		for (max = max - 1; max >= 0; max--){
+			if (Anum[max] != Bnum[max])
+				count++;
+		}
+		printf("%d\n", count);
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

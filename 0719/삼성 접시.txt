@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <string.h>
+char Stack[31];
+char alpha[31];
+int check[100];
+int top;
+
+int main()
+{
+	int num;
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int i, j;
+	int cnt;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+		scanf("%s", alpha);
+		top = 0; num = 0; cnt = 0;
+		for (i = 0; i < strlen(alpha);){
+			if (alpha[num] == 'a' + i){
+				check[cnt++] = 1; //1푸쉬
+				check[cnt++] = -1;//pop
+				num++;	i++;
+				for (j = top - 1; j >= 0; j--){
+					if (alpha[num] != Stack[j]) break; //스택에서 꺼냈을 때 값이랑 다르면 빠져나가나
+					num++; top--;
+					check[cnt++] = -1;
+				}
+			}
+			else{
+				Stack[top++] = 'a' + i;
+				i++;
+				check[cnt++] = 1;
+			}
+		}
+		if (top != 0){
+			printf("impossible\n");
+		}
+		else{
+			for (i = 0; i < cnt; i++){
+				if (check[i] == 1) printf("push\n");
+				else if (check[i] == -1)printf("pop\n");
+			}
+		}
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

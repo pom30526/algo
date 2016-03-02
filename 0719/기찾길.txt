@@ -1,0 +1,57 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+
+int Stack[1001];
+int input[1001];
+int top;
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int num;
+	int n, i;
+
+
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr < nCount; itr++)
+	{
+		printf("#testcase%d\n", itr + 1);
+		scanf("%d", &n);
+		for (i = 0; i < n; i++){
+			scanf("%d", &input[i]);
+		}
+		num = 0; top = 0;  //num 은 data의 index top은 Stack의 index;
+		for (i = 1; i <= n; i++){
+			if (input[num] != i){
+				Stack[top++] = i;
+			}
+			else{
+				num++;
+				while (top){
+					if (Stack[top - 1] != input[num]){
+						break;
+					}
+					else{
+						top--; num++;
+					}
+				}
+			}
+		}
+		if (top == 0){
+			printf("Yes\n");
+		}
+		else{
+			printf("No\n");
+		}
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}

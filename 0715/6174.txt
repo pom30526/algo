@@ -1,0 +1,69 @@
+#include <stdio.h>
+char num[4];
+int i, j;
+int temp;
+void max(){
+
+
+	for (i = 0; i < 3; i++)	{			//내림차순
+		for (j = 0; j < 3; j++){
+			if (num[j] <= num[j + 1]){
+				temp = num[j];
+				num[j] = num[j + 1];
+				num[j + 1] = temp;
+			}
+		}
+	}
+}
+void min(){
+	for (i = 0; i < 3; i++){              //오름차순
+		for (j = 0; j < 3 - i; j++){
+			if (num[j] > num[j + 1]){
+				temp = num[j];
+				num[j] = num[j + 1];
+				num[j + 1] = temp;
+			}
+		}
+	}
+}
+int main(){
+	int i,j;
+	int temp;
+	int z;
+	int result,minv,maxv,count;
+	scanf("%s", num);
+	
+	for (i = 0; i < 4; i++){
+		if (num[i] >= '0' && num[i] <= '9')
+		num[i] = num[i] - '0';
+	}
+
+	result = 0;
+	count = 0;
+	if ((num[0] * 1000) + (num[1] * 100) + (num[2] * 10) + (num[3] * 1) == 6174){
+		printf("0\n");
+	}
+	else{
+		while (result != 6174){
+			max();
+			maxv = (num[0] * 1000) + (num[1] * 100) + (num[2] * 10) + (num[3] * 1);
+			min();
+			minv = (num[0] * 1000) + (num[1] * 100) + (num[2] * 10) + (num[3] * 1);
+			result = maxv - minv;
+			num[0] = result / 1000;
+			num[1] = result / 100 % 10;
+			num[2] = result / 10 % 10;
+			num[3] = result % 10;
+			maxv = 0;
+			minv = 0;
+			count++;
+		}
+
+		printf("%d\n", count);
+	}
+	
+	
+	return 0;
+}
+
+

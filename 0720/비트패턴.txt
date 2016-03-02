@@ -1,0 +1,59 @@
+/*
+
+VC, GCC에서 사용
+
+*/
+
+#include <stdio.h>
+int print[30];
+int n, k;
+int j;
+
+void print2(int index, int num, int cntone){
+	
+	print[index] = num;
+	index++;
+	if (num == 1){
+		cntone++;
+	}
+	if (cntone == k){
+		for (j = 0; j < n; j++){
+			printf("%d", print[j]);
+			
+		}
+		
+		printf("\n");
+		return;
+	}
+	if (n == index)
+		return;
+
+	print2(index, 1, cntone);
+	print2(index, 0, cntone);
+}
+
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	
+	int cnt, num;
+	int i;
+	scanf("%d", &nCount);	/* 테스트 케이스 입력 */
+	
+	for (itr = 0; itr < nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+
+		scanf("%d %d", &n, &k);  //k개의 1을 가진 n자리수 이진패턴
+		
+			print2(0, 1, 0);
+			print2(0, 0, 0);
+		
+		
+		
+	}
+	return 0;
+}

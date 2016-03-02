@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef int Elem;
+typedef struct Node{
+	Elem data;
+	struct Node * left;
+	struct Node * right;
+}Node;
+void preorder(Node* node){
+	if (node == NULL)
+		return;
+
+	printf("%d ", node->data);
+	preorder(node->left);
+	preorder(node->right);
+}
+void inorder(Node* node){
+	if (node == NULL)
+		return;
+
+	inorder(node->left);
+	printf("%d ", node->data);
+	inorder(node->right);
+}
+void postorder(Node* node){
+	if (node == NULL)
+		return;
+
+	postorder(node->left);
+	postorder(node->right);
+	printf("%d ", node->data);
+}
+Node* SetBinaryTree(){
+	int i;
+	Node* node[6];
+	for (i = 0; i < 6; i++)
+		node[i] = (Node*)malloc(sizeof(Node));
+
+	node[0]->data = 5;
+	node[1]->data = 4;
+	node[2]->data = 1;
+	node[3]->data = 2;
+	node[4]->data = 8;
+	node[5]->data = 7;
+
+	node[0]->left = node[1];
+	node[0]->right = node[2];
+
+	node[1]->left = node[3];
+	node[1]->right = node[4];
+
+	node[2]->left = node[5];
+	node[2]->right = NULL;
+
+	node[3]->left = node[3]->right=NULL;
+	
+	node[4]->left = node[4]->right=NULL;
+	
+	
+	node[5]->right = node[5]->right = NULL;
+
+	return node[0];
+
+	//          5
+	//      4       1
+	//   2    8   7
+
+}
+int main(){
+	Node * root;
+	root = SetBinaryTree();
+
+	printf("pre : ");
+	preorder(root);
+	printf("\n");
+
+	printf("in : ");
+	inorder(root);
+	printf("\n");
+	
+	printf("post : ");
+	postorder(root);
+	printf("\n");
+	
+	
+
+	return 0;
+}

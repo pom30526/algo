@@ -1,0 +1,42 @@
+#include <stdio.h>
+double a1[10000];
+int main()
+{
+
+	int itr;
+	int nCount;		/* 문제의 테스트 케이스 */
+	int n;
+	int i, j, k;
+	double t;
+	double max;
+	scanf_s("%d", &nCount);	/* 테스트 케이스 입력 */
+
+	for (itr = 0; itr<nCount; itr++)
+	{
+
+		printf("#testcase%d\n", itr + 1);
+			
+		scanf_s("%d", &n);  //개수 입력받고
+		for (i = 0; i < n;i++){
+			scanf_s("%lf", &a1[i]); //개수 넣기
+			
+		}
+	
+		max = -1;
+		for (j = 0; j < n; j++){			//loof를 돌면서
+			t = 1;
+			for (k = j; k < n; k++){      //loof를 돌면서
+				t = t*a1[k];          //
+				if (t > max)
+					max = t;
+			}
+		}
+		printf("%.3lf\n", max);
+
+		
+
+	}
+
+	return 0;	/* 반드시 return 0으로 해주셔야합니다. */
+
+}
